@@ -1,0 +1,461 @@
+{
+    "users": [
+    
+      {
+        "number": "8106869838",
+        "user_name": "harsha",
+        "password": "123456",
+        "email": "",
+        "dob": "",
+        "gender": "",
+        "marital_status": null,
+        "id": 1
+      }
+    ],
+    "hotelcart": [
+      {
+        "image": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/201802241526105449-76b20e2613c311e88dbe0a9df65c8753.jpg?&output-quality=75&downsize=583:388&output-format=jpg",
+        "img1": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/201802241526105449-76b20e2613c311e88dbe0a9df65c8753.jpg?&output-quality=75&downsize=583:388&output-format=jpg",
+        "img2": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/201802241526105449-61fa810213c311e8867a0a9df65c8753.jpg?&output-quality=75&downsize=583:388&crop=583:388;86,0&output-format=jpg",
+        "img3": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/201802241526105449-4618b92c13c311e8afa70a9df65c8753.jpg?&output-quality=75&downsize=583:388&output-format=jpg",
+        "img4": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/201802241526105449-915d473613c311e8bb7702755708f0b3.jpg?&output-quality=75&downsize=583:388&output-format=jpg",
+        "rating": 3.8,
+        "ratingtext": "Very Good",
+        "ratingcomment": "Based on  Ratings and  reviews",
+        "name": "Octave Studio Hotel",
+        "place": "Koramangala",
+        "description": "Couple Friendly",
+        "additional": "Free Cancellation",
+        "taxes": 291,
+        "price": 2999,
+        "additional2": "",
+        "additional1": "",
+        "id": 1
+      },
+      {
+        "image": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/202203251031111024-2185f03afe8211ecab0a0a58a9feac02.jpg?&output-quality=75&downsize=583:388&crop=583:388;4,0&output-format=jpg",
+        "img1": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/202203251031111024-2185f03afe8211ecab0a0a58a9feac02.jpg?&output-quality=75&downsize=583:388&crop=583:388;4,0&output-format=jpg",
+        "img2": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/202203251031111024-0989f55cc23d11ec88930a58a9feac02.jpg?&output-quality=75&downsize=583:388&crop=583:388;24,0&output-format=jpg",
+        "img3": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/202203251031111024-1ebdede8c23d11ec89ed0a58a9feac02.jpg?&output-quality=75&downsize=583:388&crop=583:388;103,0&output-format=jpg",
+        "img4": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/202203251031111024-3050fcbcc23d11ecad7f0a58a9feac02.jpg?&output-quality=75&downsize=583:388&crop=583:388;42,0&output-format=jpg",
+        "rating": 4.3,
+        "ratingtext": "Excellent",
+        "ratingcomment": "Based on  Ratings and  reviews",
+        "name": "Hilton Bengaluru Embassy Manyata Business Park",
+        "place": "Outer Ring Road",
+        "description": "",
+        "additional": "Free Cancellation till 4 hrs before check in",
+        "taxes": 250,
+        "price": 15558,
+        "additional2": "",
+        "additional1": "",
+        "id": 2
+      }
+    ],
+    "flightcart": [
+      {
+        "airline": "Vistara",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "MUMBAI",
+        "departure": "04:20",
+        "arrival": "07:15",
+        "price": "6999",
+        "totalTime": "02h 55m",
+        "id": 1
+      },
+      {
+        "airline": "Vistara",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "BANGLURU",
+        "departure": "04:20",
+        "arrival": "07:15",
+        "price": "6999",
+        "totalTime": "02h 55m",
+        "id": 6
+      },
+      {
+        "airline": "GoAir",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "MUMBAI",
+        "departure": "06:20",
+        "arrival": "09:15",
+        "price": 7999,
+        "totalTime": "02h 55m",
+        "id": 2
+      },
+      {
+        "airline": "IndiGo",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "MUMBAI",
+        "departure": "02:20",
+        "arrival": "04:15",
+        "price": "5999",
+        "totalTime": "02h 55m",
+        "id": 3
+      },
+      {
+        "airline": "GoAir",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "BANGLURU",
+        "departure": "06:20",
+        "arrival": "09:15",
+        "price": "7999",
+        "totalTime": "02h 55m",
+        "id": 7
+      }
+    ],
+    "flight": [
+      {
+        "airline": "Vistara",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "MUMBAI",
+        "departure": "04:20",
+        "arrival": "07:15",
+        "price": "6999",
+        "totalTime": "02h 55m",
+        "id": 1
+      },
+      {
+        "airline": "GoAir",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "MUMBAI",
+        "departure": "06:20",
+        "arrival": "09:15",
+        "price": "7999",
+        "totalTime": "02h 55m",
+        "id": 2
+      },
+      {
+        "airline": "IndiGo",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "MUMBAI",
+        "departure": "02:20",
+        "arrival": "04:15",
+        "price": "5999",
+        "totalTime": "02h 55m",
+        "id": 3
+      },
+      {
+        "airline": "SpiceJet",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "MUMBAI",
+        "departure": "06:20",
+        "arrival": "09:15",
+        "price": "4999",
+        "totalTime": "02h 55m",
+        "id": 4
+      },
+      {
+        "airline": "AirIndia",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "MUMBAI",
+        "departure": "04:20",
+        "arrival": "07:15",
+        "price": "8999",
+        "totalTime": "02h 55m",
+        "id": 5
+      },
+      {
+        "airline": "Vistara",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "BANGLURU",
+        "departure": "04:20",
+        "arrival": "07:15",
+        "price": "6999",
+        "totalTime": "02h 55m",
+        "id": 6
+      },
+      {
+        "airline": "GoAir",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "BANGLURU",
+        "departure": "06:20",
+        "arrival": "09:15",
+        "price": "7999",
+        "totalTime": "02h 55m",
+        "id": 7
+      },
+      {
+        "airline": "IndiGo",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "BANGLURU",
+        "departure": "02:20",
+        "arrival": "04:15",
+        "price": "5999",
+        "totalTime": "02h 55m",
+        "id": 8
+      },
+      {
+        "airline": "SpiceJet",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "BANGLURU",
+        "departure": "06:20",
+        "arrival": "09:15",
+        "price": "4999",
+        "totalTime": "02h 55m",
+        "id": 9
+      },
+      {
+        "airline": "AirIndia",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "BANGLURU",
+        "departure": "04:20",
+        "arrival": "07:15",
+        "price": "8999",
+        "totalTime": "02h 55m",
+        "id": 10
+      },
+      {
+        "airline": "Vistara",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "PUNE",
+        "departure": "04:20",
+        "arrival": "07:15",
+        "price": "6999",
+        "totalTime": "02h 55m",
+        "id": 11
+      },
+      {
+        "airline": "GoAir",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "PUNE",
+        "departure": "06:20",
+        "arrival": "09:15",
+        "price": "7999",
+        "totalTime": "02h 55m",
+        "id": 12
+      },
+      {
+        "airline": "IndiGo",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "PUNE",
+        "departure": "02:20",
+        "arrival": "04:15",
+        "price": "5999",
+        "totalTime": "02h 55m",
+        "id": 13
+      },
+      {
+        "airline": "SpiceJet",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "PUNE",
+        "departure": "06:20",
+        "arrival": "09:15",
+        "price": "4999",
+        "totalTime": "02h 55m",
+        "id": 14
+      },
+      {
+        "airline": "AirIndia",
+        "number": "6E 2054",
+        "from": "DELHI",
+        "to": "PUNE",
+        "departure": "04:20",
+        "arrival": "07:15",
+        "price": "8999",
+        "totalTime": "02h 55m",
+        "id": 15
+      },
+      {
+        "airline": "Vistara",
+        "number": "6E 2054",
+        "from": "MUMBAI",
+        "to": "BANGLURU",
+        "departure": "04:20",
+        "arrival": "07:15",
+        "price": "6999",
+        "totalTime": "02h 55m",
+        "id": 16
+      },
+      {
+        "airline": "GoAir",
+        "number": "6E 2054",
+        "from": "MUMBAI",
+        "to": "BANGLURU",
+        "departure": "06:20",
+        "arrival": "09:15",
+        "price": "7999",
+        "totalTime": "02h 55m",
+        "id": 17
+      },
+      {
+        "airline": "IndiGo",
+        "number": "6E 2054",
+        "from": "MUMBAI",
+        "to": "BANGLURU",
+        "departure": "02:20",
+        "arrival": "04:15",
+        "price": "5999",
+        "totalTime": "02h 55m",
+        "id": 18
+      },
+      {
+        "airline": "SpiceJet",
+        "number": "6E 2054",
+        "from": "MUMBAI",
+        "to": "BANGLURU",
+        "departure": "06:20",
+        "arrival": "09:15",
+        "price": "4999",
+        "totalTime": "02h 55m",
+        "id": 19
+      },
+      {
+        "airline": "AirIndia",
+        "number": "6E 2054",
+        "from": "MUMBAI",
+        "to": "BANGLURU",
+        "departure": "04:20",
+        "arrival": "07:15",
+        "price": "8999",
+        "totalTime": "02h 55m",
+        "id": 20
+      },
+      {
+        "airline": "Indigo",
+        "number": "ING-26",
+        "from": "Kanpur",
+        "to": "Pune",
+        "departure": "06:35",
+        "arrival": "07:25",
+        "price": 5800,
+        "totalTime": "05:10",
+        "id": 21
+      }
+    ],
+    "giftcards": [
+      {
+        "id": "WeddingGiftCard",
+        "title": "Wedding Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/giftcard-12012023.png",
+        "category": "ocassion"
+      },
+      {
+        "id": "LuxuryHotelsGiftCard",
+        "title": "Luxury Hotels Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/luxury-hotel-2.png",
+        "category": "loved"
+      },
+      {
+        "id": "BirthdayCard",
+        "title": "Birthday Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/580x346-birthday-1-phy-12012021.png",
+        "category": "ocassion"
+      },
+      {
+        "id": "BestWishesGiftCard",
+        "title": "Best Wishes Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/580x346-BestWishes-2.png",
+        "category": "ocassion"
+      },
+      {
+        "id": "AnniversaryGiftCard",
+        "title": "Anniversary Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/580x346-aniversary-1-phy-12012021.png",
+        "category": "ocassion"
+      },
+      {
+        "id": "CongratulationsGiftCard",
+        "title": "Congratulations Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/580x346-congrats-1-phy-12012021.png",
+        "category": "ocassion"
+      },
+      {
+        "id": "RakshabandhanGiftCard",
+        "title": "Rakshabandhan Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/gc-rakshabandhan.png",
+        "category": "festival"
+      },
+      {
+        "id": "FarewellGiftCard",
+        "title": "Farewell Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/580x346-farewell-1.png",
+        "category": "ocassion"
+      },
+      {
+        "id": "ThankYouGiftCard",
+        "title": "Thank You Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/580x346-thank-you-1.png",
+        "category": "ocassion"
+      },
+      {
+        "id": "MothersDayGiftCard",
+        "title": "Mother's Day Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/mothers-day-1.png",
+        "category": "loved"
+      },
+      {
+        "id": "Father'sDayGiftCard",
+        "title": "Father's Day Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/father-day-1.png",
+        "category": "loved"
+      },
+      {
+        "id": "ValentinesDayGiftCard",
+        "title": "Valentines Day Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/father-day-1.png",
+        "category": "loved"
+      },
+      {
+        "id": "EidMubarakGiftCard",
+        "title": "Eid Mubarak Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/father-day-1.png",
+        "category": "festival"
+      },
+      {
+        "id": "OnamGiftCard",
+        "title": "Onam Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/580x346-Onam-1.png",
+        "category": "festival"
+      },
+      {
+        "id": "ChristmasGiftCard",
+        "title": "Christmas Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/christmas-1.png",
+        "category": "festival"
+      },
+      {
+        "id": "KarvachauthGiftCard",
+        "title": "Karvachauth Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/karva-chauth-1-22102021.png",
+        "category": "festival"
+      },
+      {
+        "id": "HappyNewYearGiftCard",
+        "title": "Happy New Year Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/new-year-1.png",
+        "category": "festival"
+      },
+      {
+        "id": "DiwaliGiftCard",
+        "title": "Diwali Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/580x346-diwali-1-phy-12012021.png",
+        "category": "festival"
+      },
+      {
+        "id": "BhaidoojhGiftCard",
+        "title": "Bhaidoojh Gift Card",
+        "image": "https://promos.makemytrip.com/appfest/2x/bhai-dooj-2-03112021.png",
+        "category": "festival"
+      }
+    ]
+}
