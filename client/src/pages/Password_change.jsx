@@ -13,7 +13,7 @@ function PasswordChange() {
         newPassword: data.newPassword,
       });
       setMessage({ type: "success", text: response.data.message });
-      reset(); // Reset form after successful submission
+      reset(); 
     } catch (error) {
       setMessage({
         type: "error",

@@ -50,9 +50,10 @@ function Book_hotel() {
         userId: currentUser._id,
       },
 
-        // dispatch(addPoints(loyaltyPoints.loyaltyPoints))
+
       )
-      console.log(loyaltyPoints)
+      dispatch(addPoints(loyaltyPoints.data.data.loyaltyPoints))
+      console.log(loyaltyPoints.data)
 
 
 

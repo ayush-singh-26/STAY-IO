@@ -6,10 +6,12 @@ import { useSelector } from 'react-redux';
 function Navbar() {
 
   const currentUser = useSelector((state) => state.auth);
+  console.log(currentUser);
+  
   const loyaltyPoints = useSelector((state) => state.loyaltyPoints);
   console.log(loyaltyPoints);
-  
-  
+
+
 
   return (
     <nav className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 p-4 shadow-md sticky">
@@ -30,9 +32,13 @@ function Navbar() {
           <Link to="/getBookings" className="text-gray-200 hover:text-white transition-colors duration-300 px-3 py-2 rounded-lg">
             Bookings
           </Link>
-          <Link to="/getBookings" className="text-gray-200 hover:text-white transition-colors duration-300 px-3 py-2 rounded-lg">
-            Loyalty Points: {currentUser.userData.loyaltyPoints}
-          </Link>
+          {/* <Link to="/getBookings" className="text-gray-200 hover:text-white transition-colors duration-300 px-3 py-2 rounded-lg">
+            {currentUser.userData.loyaltyPoints ? (
+              'Loyalty Points: Unavailable'
+            ) :
+          `Loyalty Points: ${loyaltyPoints}`
+          }
+          </Link> */}
 
           {/* Authenticated User */}
           {currentUser.userData ? (

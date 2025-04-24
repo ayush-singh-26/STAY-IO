@@ -5,6 +5,7 @@ import axios from 'axios';
 import { deleteUser } from '../store/authSlice';
 
 const Profile = () => {
+  
 
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -27,7 +28,6 @@ const Profile = () => {
             'Authorization': `Bearer ${token}`,
           },
         });
-        console.log(response.data.data);
         setUserData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -49,8 +49,6 @@ const Profile = () => {
     } catch (error) {
       console.error("Error deleting account", error);
     }
-
-
   }
 
 

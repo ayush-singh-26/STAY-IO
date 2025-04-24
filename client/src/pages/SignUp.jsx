@@ -18,7 +18,7 @@ function SignUp() {
     const onSignUp = async (data) => {
         try {
             setLoading(true);
-            const formData = new FormData(); // Create a FormData object for file upload
+            const formData = new FormData(); 
             Object.keys(data).forEach((key) => {
                 formData.append(key, data[key]);
             });
@@ -27,7 +27,7 @@ function SignUp() {
             if (data.avatar[0]) {
                 formData.append('avatar', data.avatar[0]);
             }
-
+            
             const response = await axios.post(`api/v1/users/register`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });

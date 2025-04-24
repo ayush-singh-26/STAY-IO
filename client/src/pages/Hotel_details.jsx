@@ -2,11 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Comment from "../components/comment";
 
 function Hotel_details() {
   const navigate = useNavigate();
   const selectedHotel = useSelector((state) => state.search.selectedHotel);
-  // console.log(selectedHotel);
+  console.log(selectedHotel);
   
   if (!selectedHotel) {
     return <p>Loading...</p>;
@@ -102,6 +103,7 @@ function Hotel_details() {
         {/* Thank You */}
         <h1 className="text-center text-gray-600 mt-8 text-lg">Thank You for Choosing Us</h1>
       </div>
+      <Comment/>
     </div>
   );
 }

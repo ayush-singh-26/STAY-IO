@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 // Define hotel schema
@@ -16,6 +16,10 @@ const hotelSchema = new mongoose.Schema({
     price: { type: Number }, 
     additional1: { type: String }, 
     additional2: { type: String }, 
+    comments:{
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
+    }
 });
 
 hotelSchema.index({ place: 'text' });

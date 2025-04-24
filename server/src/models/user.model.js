@@ -24,7 +24,7 @@ const userSchema = new Schema(
         avatar: {
             type: String,
             // required: true,
-            default:'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+            default: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
         },
         coverImage: {
             type: String,
@@ -49,16 +49,15 @@ const userSchema = new Schema(
         // {
         //     type: String,
         // },
-        otp:{
-            type: String,
-            default: null,
-            
-        },
-        token:{
+        otp: {
             type: String,
             default: null,
         },
-        loyaltyPoints:{
+        token: {
+            type: String,
+            default: null,
+        },
+        loyaltyPoints: {
             type: Number,
             default: 0,
         }
@@ -91,7 +90,7 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 
 
 userSchema.methods.generateAccessToken = function () {
-    return jwt.sign(            
+    return jwt.sign(
         {
             _id: this._id,
             email: this.email,
