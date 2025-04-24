@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Comment from "../components/comment";
+import Comment from "../components/Comment";
 
 function Hotel_details() {
   const navigate = useNavigate();
