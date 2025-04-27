@@ -19,11 +19,10 @@ router.route('/addHotel').post(
 
         },
     ]),    
-    createHotel);
-router.route('/updateHotel/:id').patch(updateHotel);
-router.route('/deleteHotel/:id').delete(deleteHotel);
-
-router.route('/loyaltyPoints/:hotelId').patch(loyaltyPoints);
+    verifyJWT, createHotel);
+router.route('/updateHotel/:id').patch(verifyJWT,updateHotel);
+router.route('/deleteHotel/:id').delete(verifyJWT,deleteHotel);
+router.route('/loyaltyPoints/:hotelId').patch(verifyJWT,loyaltyPoints);
 
 
 export default router;

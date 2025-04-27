@@ -12,91 +12,63 @@ import MailSender from "../middlewares/sendMail.js";
 
 
 
-const generateAccessAndRefreshToken = async (userId) => {
+const generateToken = async (userId) => {
     try {
         const user = await User.findById(userId)
         const accessToken = user.generateAccessToken();
-        // const refreshToken = user.generateRefreshToken();
-
-        // user.refreshToken = refreshToken
         await user.save({ validateBeforeSave: false })
-
         return accessToken;
-
     } catch (error) {
         throw new ApiError(500, "Something went wrong while generating refresh and access token")
     }
 }
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { fullname, email, username, password } = req.body;
 
-    if ([fullname, email, username, password].some((field) => field?.trim() === "")) {
+    const { fullname, email, password } = req.body;
+
+    if ([fullname, email, password].some((field) => field?.trim() === "")) {
         throw new ApiError(400, "All fields are required");
     }
 
-    const existedUser = await User.findOne({ $or: [{ email }, { username }] });
+    const existedUser = await User.findOne({ email });
     if (existedUser) {
         throw new ApiError(409, "Email or Username already exists");
     }
 
-
-    // Check for avatar in the request
-    const avatarLocalPath = req.files?.avatar?.[0]?.path;
-    // if (!avatarLocalPath) {
-    //     throw new ApiError(400, "Avatar file is required");
-    // }
-
-    // Upload avatar to Cloudinary
-    const avatar = await uploadOnCloudinary(avatarLocalPath);
-    if (!avatar) {
-        throw new ApiError(400, "Failed to upload avatar");
-    }
-
-    // Check for cover image in the request and upload it to Cloudinary
-    let coverImage;
-    if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
-        const coverImageLocalPath = req.files.coverImage[0].path;
-        coverImage = await uploadOnCloudinary(coverImageLocalPath);
-    }
-
-    // Create a new user
     const user = await User.create({
         fullname,
-        // avatar: avatar?.url||"",
-        coverImage: coverImage?.url || "",
         email,
         password,
-        username,
     });
 
-    // Find the created user and remove sensitive fields from the response
-    const createdUser = await User.findById(user._id)
-        .select('-password -refreshToken');
+    const createdUser = await User.findById(user._id).select('-password -refreshToken');
+
     if (!createdUser) {
         throw new ApiError(500, "Something went wrong while registering the user");
     }
 
-    // Send welcome email
+    const accessToken = await generateToken(createdUser._id)
+
     await MailSender(
         createdUser.email,
         "Welcome to Hotel Booking MMT",
         `Welcome to Hotel Booking MMT, ${createdUser.fullname}! Your account has been created successfully. You can now log in to access your account.`
     )
 
-    // Return the response
-    return res.status(201).json(
-        new ApiResponse(200, createdUser, "User registered successfully")
+    const options = {
+        httpOnly: true,
+        secure: true,
+    }
+
+    return res.status(201)
+    .cookie("accessToken", accessToken, options)
+    .json(
+        new ApiResponse(200, { user : createdUser, accessToken }, "User registered successfully")
     );
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-    // req body -> data
-    // username or email
-    //find the user
-    //password check
-    //access and referesh token
-    //send cookie
 
     const { email, username, password } = req.body
 
@@ -118,14 +90,13 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(401, "Invalid user credentials")
     }
 
-    const accessToken = await generateAccessAndRefreshToken(user._id)
+    const accessToken = await generateToken(user._id)
 
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
 
     const options = {
         httpOnly: true,
         secure: true,
-        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
     }
 
     return res
@@ -394,12 +365,10 @@ const deleteUser = asyncHandler(async (req, res) => {
     if (!user) {
         throw new ApiError(404, "User not found");
     }
-    console.log(user);
-
 
     return res.status(200).json(
-        new ApiResponse(200, {}, "User deleted successfully"))
-
+        new ApiResponse(200, {}, "User deleted successfully")
+    )
 
 })
 
