@@ -11,7 +11,7 @@ function Logout() {
         try {
             await axios.post('/api/v1/users/logout');
             dispatch(signOut());
-            navigate('/home');
+            navigate('/');
         } catch (error) {
             console.error("Logout failed", error);
         }

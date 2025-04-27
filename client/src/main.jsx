@@ -21,34 +21,60 @@ import { Add_hotel } from './pages/Add_hotel.jsx';
 import Edit_hotel from './pages/Edit_hotel.jsx';
 import Reset_password from './pages/Reset_password.jsx';
 import Forgot_password from './pages/Forgot_password.jsx';
+import Admin_Panel from './pages/admin/Admin_Panel.jsx';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<App />}>,
-      <Route path='/register' element={<SignUp />} />
-      <Route path='/home' element={<Home />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/profile' element={<Profile />} />
-      <Route path='/change-password' element={<PasswordChange />} />
-      <Route path='/searchHotel' element={<SearchHotel />} />
-      <Route path='/:id' element={<Hotel_details />} />
-      <Route path='/booking/:id' element={<Book_hotel/>} />
-      <Route path='/getBookings' element={<Get_bookings/>} />
-      <Route path='/addHotel' element={<Add_hotel/>} />
-      <Route path='/updateHotel' element={<Edit_hotel/>} />
-      <Route path='/reset-password' element={<Reset_password/>} />
-      <Route path='/forgot-password' element={<Forgot_password/>} />
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      { path: '', element: <Home /> },
+      { path: 'login', element: <Login /> },
+      { path: 'sign-up', element: <SignUp /> },
+      { path: 'profile', element: <Profile /> },
+      { path: 'change-password', element: <PasswordChange /> },
+      { path: 'search-hotel', element: <SearchHotel /> },
+      { path: 'hotel/:id', element: <Hotel_details /> },
+      { path: 'hotel/booking/:id', element: <Book_hotel /> },
+      { path: 'get-bookings', element: <Get_bookings /> },
+
+    ]
+  },
+  {
+    path : '/admin',
+    element : <Admin_Panel/>,
+    children : [
+      { path : 'add-hotel' , element : <Add_hotel/> },
+      { path : 'edit-hotel' , element : <Edit_hotel/> },
+    ]
+
+  }
+]
+  // createRoutesFromElements(
+  //   <Route path="/" element={<App />}>,
+  //     <Route path='/register' element={<SignUp />} />
+  //     <Route path='/home' element={<Home />} />
+  //     <Route path='/login' element={<Login />} />
+  //     <Route path='/profile' element={<Profile />} />
+  //     <Route path='/change-password' element={<PasswordChange />} />
+  //     <Route path='/searchHotel' element={<SearchHotel />} />
+  //     <Route path='/:id' element={<Hotel_details />} />
+  //     <Route path='/booking/:id' element={<Book_hotel/>} />
+  //     <Route path='/getBookings' element={<Get_bookings/>} />
+  //     <Route path='/addHotel' element={<Add_hotel/>} />
+  //     <Route path='/updateHotel' element={<Edit_hotel/>} />
+  //    
 
 
-    </Route>
-  )
+  //   </Route>
+  // )
 )
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor} >
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor} >
       <RouterProvider router={router} />
-      </PersistGate>
-    </Provider>
+    </PersistGate>
+  </Provider>
 )
