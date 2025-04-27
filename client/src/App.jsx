@@ -1,12 +1,24 @@
 import { Outlet } from 'react-router-dom';
 import Footers from './components/Footers';
 import Navbar from './components/Navbar';
-
+import { Bounce, ToastContainer } from 'react-toastify';
 
 function App() {
-  
+
   return (
-    <div className='bg-gray-800'>
+    <div>
+      <ToastContainer
+        position='top-right'
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce} />
       <Navbar />
       <Outlet />
       <Footers />
