@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { signInFailure, signInStart, signInSuccess } from '../store/authSlice';
+import { signInSuccess } from '../store/authSlice';
 import Spinner from '../components/Loader/Spinner';
 import OAuth from '../components/OAuth';
 
@@ -20,8 +20,6 @@ function Login() {
     const onLogin = async (data) => {
         setMessage('');
         setLoading(true);
-        dispatch(signInStart());
-
         try {
             const response = await axios.post('/api/v1/users/login', data);            
             setMessage(response.data.message);
@@ -30,7 +28,6 @@ function Login() {
             navigate('/profile');
         } catch (e) {
             const errorMsg = e.response?.data?.message || 'Authentication failed';
-            dispatch(signInFailure(errorMsg));
             setMessage(errorMsg);
         } finally {
             setLoading(false);

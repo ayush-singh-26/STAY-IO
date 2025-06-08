@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import store from './store/store.js';
 import { persistor } from './store/store.js';
@@ -17,11 +17,12 @@ import {
   Get_bookings
 } from './pages/index.jsx';
 import { PersistGate } from 'redux-persist/integration/react';
-import { Add_hotel } from './pages/Add_hotel.jsx';
-import Edit_hotel from './pages/Edit_hotel.jsx';
+import { Add_hotel } from './pages/admin/Add_hotel.jsx';
+import Edit_hotel from './pages/admin/Edit_hotel.jsx';
 import Reset_password from './pages/Reset_password.jsx';
 import Forgot_password from './pages/Forgot_password.jsx';
 import Admin_Panel from './pages/admin/Admin_Panel.jsx';
+import Navbar from './components/Navbar.jsx';
 
 const router = createBrowserRouter([
   {
@@ -34,18 +35,24 @@ const router = createBrowserRouter([
       { path: 'profile', element: <Profile /> },
       { path: 'change-password', element: <PasswordChange /> },
       { path: 'search-hotel', element: <SearchHotel /> },
-      { path: 'hotel/:id', element: <Hotel_details /> },
-      { path: 'hotel/booking/:id', element: <Book_hotel /> },
+      { path: 'hotel/:hotelId', element: <Hotel_details /> },
+      { path: 'hotel/:hotelId/booking', element: <Book_hotel /> },
       { path: 'get-bookings', element: <Get_bookings /> },
 
     ]
   },
   {
-    path : '/admin',
-    element : <Admin_Panel/>,
-    children : [
-      { path : 'add-hotel' , element : <Add_hotel/> },
-      { path : 'edit-hotel' , element : <Edit_hotel/> },
+    path: '/admin',
+    element: (
+      <>
+        <Navbar />
+        <Outlet/>
+      </>
+    ),
+    children: [
+      {path : '' ,element : <Admin_Panel/>},
+      { path: 'add-hotel', element: <Add_hotel /> },
+      { path: 'edit-hotel', element: <Edit_hotel /> },
     ]
 
   }

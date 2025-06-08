@@ -7,7 +7,7 @@ import { upload } from "../middlewares/multer.middleware.js";
 const router=new Router();
 
 router.route('/getHotel').get(getHotel)
-router.route('/bookHotel').post(verifyJWT,bookHotel)
+router.route('/bookHotel/:id').post(verifyJWT,bookHotel)
 router.route('/getHotelById/:id').get(getHotelById)
 router.route('/getBookings').get(verifyJWT,getBookings);
 router.route('/cancelBookings/:id').delete(verifyJWT,cancelBooking);

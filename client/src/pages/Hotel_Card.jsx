@@ -1,13 +1,17 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Hotel_Card({searchResults}) {
+function Hotel_Card({ searchResults }) {
     const navigate = useNavigate();
+
+    const handleHotel = (hotel) => {
+        navigate(`/hotel/${hotel._id}`)
+    }
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {searchResults?.map((hotel) => (
-                <div key={hotel._id} className="bg-white rounded-xl shadow-md overflow-hidden transition-all hover:shadow-xl">
+                <div onClick={() => handleHotel(hotel)} key={hotel._id} className="bg-white rounded-xl shadow-md overflow-hidden transition-all hover:shadow-xl">
                     <Link className="block">
                         <div className="relative h-64">
                             <img
@@ -17,7 +21,7 @@ function Hotel_Card({searchResults}) {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                             <div className="absolute top-4 right-4 bg-white/90 rounded-full px-3 py-1 text-sm font-semibold shadow-sm">
-                                ★ 4.8
+                                {hotel.ratings}
                             </div>
                         </div>
                         <div className="p-6">
@@ -34,7 +38,7 @@ function Hotel_Card({searchResults}) {
                                     <span className="text-lg font-bold text-gray-900">${hotel.price}</span>
                                     <span className="text-gray-600"> / night</span>
                                 </div>
-                                <button onClick={()=>navigate(`/${hotel._id}`)} className="text-blue-600 hover:text-blue-800 font-medium">
+                                <button className="text-blue-600 hover:text-blue-800 font-medium">
                                     View Details
                                 </button>
                             </div>

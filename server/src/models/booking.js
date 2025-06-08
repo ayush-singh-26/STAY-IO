@@ -2,72 +2,46 @@ import mongoose, { Schema } from "mongoose";
 
 const bookingSchema = new Schema(
   {
-    booking_id: {
-      type: String,
-      required: true,
-      unique: true,
-      default: () => Date.now().toString().slice(0, 10),  // Generate booking ID
-    },
-    userId: { 
+    userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,  // Typically required for a booking
     },
     hotelId: {
       type: Schema.Types.ObjectId,
       ref: "Hotel",
-      required: true,
+      // required: true,
     },
-    hotelName: {
-      type: String,  // Hotel name as string instead of ObjectId
-      required: true,
+    fullName : {
+      type: String,
     },
-    place: {
-      type: String,  // Place name or address as string instead of ObjectId
-      required: true,
+    email : { 
+      type : String
+    },
+    phone : {
+      type : String
     },
     checkIn: {
       type: Date,
-      required: true,
+      // required: true,
     },
     checkOut: {
       type: Date,
-      required: true,
+      // required: true,
     },
     guests: {
       type: Number,
-      required: true,
-    },
-    price: {
-      type: Number,  // Price should be a number
-      required: true,
+      // required: true,
+      min: 1,
     },
     status: {
       type: String,
       // required: true,
-      enum: ['pending', 'confirmed', 'cancelled'],  // Define allowed status values
+      enum: ['pending', 'confirmed', 'cancelled'],
       default: 'pending',
+      index: true,
     },
-    name:{
-      type: String,
-      required: true,
-    },
-    email:{
-      type: String,
-      required: true,
-    },
-    mobile:{
-      type: String,
-      required: true,
-    },
-    image:{
-      type: String,
-      required: true,
-    }
-
   },
-  { timestamps: true }  // Automatically manage createdAt and updatedAt fields
+  { timestamps: true }
 );
 
 export const Booking = mongoose.model("Booking", bookingSchema);
-   

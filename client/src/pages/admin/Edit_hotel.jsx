@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setSelectedHotel } from "../store/SearchSlice"; // Import your action
+import { setSelectedHotel } from "../../store/SearchSlice"; // Import your action
 
 function Edit_hotel() {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();

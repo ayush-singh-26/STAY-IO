@@ -3,26 +3,44 @@ import mongoose, { Schema } from "mongoose";
 
 // Define hotel schema
 const hotelSchema = new mongoose.Schema({
-    image: { type: [String] },
-    rating: { type: Number }, 
-    ratingText: { type: String }, 
-    ratingComment: { type: String },
-    name: { type: String }, 
-    place: { type: String }, 
-    description: { type: String },
-    additional: { type: String },
-    taxes: { type: Number },
-    amenities: { type: [String] },
-    price: { type: Number }, 
-    additional1: { type: String }, 
-    additional2: { type: String }, 
+
+    image: {
+        type: [String],
+    },
+    rating : {
+        type : Number,
+    },
+    ratingComment: {
+        type : String,
+    },
+    amenities: { 
+        type: [String]
+    },
+    name: { 
+        type: String,
+        required : true,
+    }, 
+    place: { 
+        type: String,
+        required : true,
+    }, 
+    description: { 
+        type: String 
+    },
+    additional: { 
+        type: String 
+    },
+    taxes: { 
+        type: Number 
+    },
+    price: { 
+        type: Number 
+    }, 
     comments:{
         type: Schema.Types.ObjectId,
         ref: "Comment"
     }
 });
 
-hotelSchema.index({ place: 'text' });
 
-// Exporting the hotel model
 export const Hotel = mongoose.model("Hotel", hotelSchema);
