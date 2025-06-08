@@ -9,16 +9,14 @@ function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate()
-  const currentUser = useSelector(state => state.auth.userData)
-
-
+  
+  
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
-      setLoggedIn(true);
-    } else {
-      setLoggedIn(false);
-    }
+    const token = localStorage.getItem("accessToken");
+    setLoggedIn(!!token);
   }, []);
+  
+  const currentUser = useSelector(state => state.auth.userData)
 
 
 
