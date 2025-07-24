@@ -1,35 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setSearchQuery } from "../store/SearchSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { trending_places } from "../../config/trending_places";
-import axios from "axios";
 import Hotel_Card from "./Hotel_Card";
 
 function Home() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const [searchQuery, setSearchQuery] = useState("");
 
-    const searchQuery = useSelector((state) => state.search.searchQuery);
-    const searchResults = useSelector((state) => state.search.searchResults);
+    const searchResults = useSelector(state => state.search.searchResults)
+    // console.log(searchResults);
 
-    const handleSearchInputChange = (place) => {
-        dispatch(setSearchQuery(place));
-        localStorage.setItem("place", query);
-    };
-
-    // Handle search button click
     const handleSearch = () => {
-        if (searchQuery) {
-            navigate("/search-hotel");
-        } else {
-            alert("Please enter a destination to search");
-        }
+        navigate(`/search-hotel/${searchQuery}`);
     };
-
-    const topRated = async () => {
-        const response = await axios.get()
-    }
 
     return (
         <>
@@ -47,81 +31,101 @@ function Home() {
                     </div>
 
                     {/* Search Bar */}
-                    <div className="w-full max-w-5xl mx-auto mt-8 animate-fadeIn delay-200">
-                        <div className="bg-white rounded-2xl shadow-2xl p-6">
-                            <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                    <div className="w-full max-w-6xl mx-auto mt-8 animate-fadeIn">
+                        <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+                            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
                                 {/* Destination */}
                                 <div className="md:col-span-4">
-                                    <label htmlFor="destination" className="block text-sm font-medium text-gray-700 mb-1">Destination</label>
+                                    <label htmlFor="destination" className="block text-sm font-medium text-gray-700 mb-2">
+                                        Destination
+                                    </label>
                                     <div className="relative">
-                                        <input
-                                            id="destination"
-                                            className="w-full border border-gray-300 p-3 rounded-lg pl-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                            value={searchQuery || ""}
-                                            onChange={(e) => handleSearchInputChange(e.target.value)}
-                                            type="text"
-                                            placeholder="Where are you going?"
-                                        />
                                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
                                         </div>
+                                        <input
+                                            id="destination"
+                                            className="w-full border border-gray-300 p-3 rounded-lg pl-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            type="text"
+                                            placeholder="Where are you going?"
+                                        />
                                     </div>
                                 </div>
 
-                                {/* Dates */}
-                                <div className="md:col-span-3">
-                                    <label htmlFor="checkin" className="block text-sm font-medium text-gray-700 mb-1">Check-in</label>
+                                {/* Check-in Date */}
+                                <div className="md:col-span-2">
+                                    <label htmlFor="checkin" className="block text-sm font-medium text-gray-700 mb-2">
+                                        Check-in
+                                    </label>
                                     <div className="relative">
-                                        <input
-                                            id="checkin"
-                                            className="w-full border border-gray-300 p-3 rounded-lg pl-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                            type="date"
-                                        />
                                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div className="md:col-span-3">
-                                    <label htmlFor="checkout" className="block text-sm font-medium text-gray-700 mb-1">Check-out</label>
-                                    <div className="relative">
                                         <input
-                                            id="checkout"
-                                            className="w-full border border-gray-300 p-3 rounded-lg pl-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            id="checkin"
+                                            className="w-full border border-gray-300 p-3 rounded-lg pl-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                                             type="date"
+                                            min={new Date().toISOString().split('T')[0]}
                                         />
                                     </div>
                                 </div>
 
-                                {/* Guests & Search */}
-                                <div className="md:col-span-2 flex flex-col">
-                                    <label htmlFor="guests" className="block text-sm font-medium text-gray-700 mb-1">Guests</label>
-                                    <div className="flex-1 flex">
-                                        <div className="relative flex-1 mr-2">
-                                            <input
-                                                id="guests"
-                                                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                type="number"
-                                                min="1"
-                                                placeholder="2"
-                                            />
-                                        </div>
-                                        <button
-                                            onClick={handleSearch}
-                                            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center"
-                                        >
-                                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                            </svg>
-                                            Search
-                                        </button>
+                                {/* Check-out Date */}
+                                <div className="md:col-span-2">
+                                    <label htmlFor="checkout" className="block text-sm font-medium text-gray-700 mb-2">
+                                        Check-out
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                            id="checkout"
+                                            className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                            type="date"
+                                            min={new Date().toISOString().split('T')[0]}
+                                        />
                                     </div>
+                                </div>
+
+                                {/* Guests */}
+                                <div className="md:col-span-2">
+                                    <label htmlFor="guests" className="block text-sm font-medium text-gray-700 mb-2">
+                                        Guests
+                                    </label>
+                                    <div className="relative">
+                                        <select
+                                            id="guests"
+                                            className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none transition-all duration-200"
+                                        >
+                                            {[1, 2, 3, 4, 5, 6].map(num => (
+                                                <option key={num} value={num}>{num} {num === 1 ? 'Guest' : 'Guests'}</option>
+                                            ))}
+                                            <option value="7+">7+ Guests</option>
+                                        </select>
+                                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                            <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Search Button */}
+                                <div className="md:col-span-2">
+                                    <button
+                                        onClick={handleSearch}
+                                        className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-6 py-3.5 rounded-lg font-medium transition-all duration-300 flex items-center justify-center shadow-md hover:shadow-lg"
+                                    >
+                                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                        Search
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +143,7 @@ function Home() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {trending_places.map((place) => (
                         <div key={place.place} className="group relative overflow-hidden rounded-xl shadow-lg">
-                            <Link to={`/search-hotel`} onClick={() => handleSearchInputChange(place.place)} className="block">
+                            <Link to={`/search-hotel/${searchQuery}`} onClick={(e) => setSearchQuery(e.target.value)} className="block">
                                 <img
                                     src={place.image}
                                     alt={place.place}
@@ -198,7 +202,7 @@ function Home() {
 
                 <div className="relative">
                     <div className="flex space-x-6 overflow-x-auto pb-6 -mx-4 px-4 hide-scrollbar">
-                        {searchResults?.slice(0, 8).map((hotel) => (
+                        {/* {searchResults?.slice(0, 8).map((hotel) => (
                             <div key={hotel._id} className="flex-shrink-0 w-72">
                                 <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all hover:shadow-xl h-full flex flex-col">
                                     <Link className="block flex-1">
@@ -229,7 +233,7 @@ function Home() {
                                     </Link>
                                 </div>
                             </div>
-                        ))}
+                        ))} */}
                     </div>
                 </div>
             </div>
@@ -242,7 +246,7 @@ function Home() {
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto">Loved by our guests</p>
                     </div>
 
-                    <Hotel_Card searchResults={searchResults}/>
+                    <Hotel_Card searchResults={searchResults} />
                 </div>
             </div>
         </>
