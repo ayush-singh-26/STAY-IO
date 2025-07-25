@@ -1,39 +1,44 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { FiTrash2 } from "react-icons/fi";
 
-function Comment() {
+function Comment({ selectedHotel }) {    
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const selectedHotel = useSelector((state) => state.search.selectedHotel);
     const [comments, setComments] = useState([]);
+    const user = useSelector((state) => state.auth.userData);
     
     useEffect(() => {
         const fetchComments = async () => {
             try {
                 const response = await axios.get(`/api/v1/comments/getHotelReviewComments/${selectedHotel._id}`);
-                console.log("Fetched Comments:", response.data.data);
                 setComments(response.data.data || []);
             } catch (error) {
                 console.error("Error fetching comments:", error.response || error.message);
-                setComments([]); // Handle fetch errors
+                setComments([]);
             }
         };
         fetchComments();
-    }, [selectedHotel]);
+    }, [selectedHotel,comments]);
 
     const addComment = async (data) => {
         try {
             await axios.post(`/api/v1/comments/addComment/${selectedHotel._id}`, {
                 comment: data.comment,
             });
-            reset();
-
-            // Refetch comments
-            const response = await axios.get(`/api/v1/comments/getHotelReviewComments/${selectedHotel._id}`);
-            setComments(response.data.data || []);
+            reset()
         } catch (error) {
             console.error("Error adding comment:", error.response || error.message);
+        }
+    };
+
+    const deleteComment = async (commentId) => {
+        try {
+            await axios.delete(`/api/v1/comments/deleteComment/${commentId}`);
+            setComments(comments.filter(comment => comment._id !== commentId));
+        } catch (error) {
+            console.error("Error deleting comment:", error.response || error.message);
         }
     };
 
@@ -63,9 +68,22 @@ function Comment() {
             <div className="space-y-4 mt-6">
                 {comments.length > 0 ? (
                     comments.map((comment) => (
-                        <div key={comment._id} className="p-4 bg-gray-300 rounded-lg text-gray-700">
-                            <p className="font-semibold">{comment.postedBy?.fullname || "Anonymous"}</p>
-                            <p>{comment.comment}</p>
+                        <div key={comment._id} className="p-4 bg-gray-100 rounded-lg text-gray-700 relative">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <p className="font-semibold">{comment.postedBy?.fullname || "Anonymous"}</p>
+                                    <p className="mt-1">{comment.comment}</p>
+                                </div>
+                                {user && user._id === comment.postedBy?._id && (
+                                    <button
+                                        onClick={() => deleteComment(comment._id)}
+                                        className="text-gray-500 hover:text-red-500 transition-colors ml-4"
+                                        title="Delete comment"
+                                    >
+                                        <FiTrash2 className="h-5 w-5" />
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     ))
                 ) : (
