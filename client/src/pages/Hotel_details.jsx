@@ -1,51 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Comment from "../components/Comment";
 
 function Hotel_details() {
   const { hotelId } = useParams();
-  const navigate = useNavigate()
-  const [selectedHotel, setSelectedHotel] = useState(null)
+  const navigate = useNavigate();
+  const [selectedHotel, setSelectedHotel] = useState(null)  
 
   useEffect(() => {
-    const fetchHotel = async () => {
-      console.log(`/api/v1/hotels/getHotelById/${hotelId}`);
-
-      const response = await axios.get(`/api/v1/hotels/getHotelById/${hotelId}`)
-      console.log(response.data);
-
-      setSelectedHotel(response.data.data)
-
-    }
-    fetchHotel()
-  }, [])
+    axios.get(`/api/v1/hotels/getHotelById/${hotelId}`)
+      .then((res) => {
+        setSelectedHotel(res.data.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching booking details:", err);
+      });
+  }, [hotelId])
 
   const deleteHotel = async () => {
     try {
       const response = await axios.delete(`/api/v1/hotels/deleteHotel/${selectedHotel._id}`);
-      console.log(response.data);
-      navigate('/searchHotel');
+      navigate('/');
     } catch (error) {
       console.error("Error deleting hotel:", error);
     }
   }
 
-  const handleClickHotel = () => {
-    navigate(`booking`, { state: { selectedHotel } })
-  }
-
-
   return (
     <div className="p-6 md:p-8 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 w-full mb-8 rounded-xl overflow-hidden shadow-lg">
         <div className="md:col-span-2 md:row-span-2 relative group">
-          <img className="object-cover w-full h-full min-h-[400px] transition-transform duration-500 group-hover:scale-105" src={selectedHotel?.image[0]} />
+          <img className="object-cover w-full h-full min-h-[400px] transition-transform duration-500 group-hover:scale-105" src={selectedHotel?.images[0]} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
 
-        {selectedHotel?.image.slice(1, 5).map((image, index) => (
+        {selectedHotel?.images.slice(1, 5).map((image, index) => (
           <div key={index} className="relative group hidden md:block">
             <img
               className="object-cover w-full h-48 transition-transform duration-500 group-hover:scale-105"
@@ -98,7 +89,7 @@ function Hotel_details() {
           </div>
 
           <div className="mt-6">
-            <Comment />
+            <Comment selectedHotel={selectedHotel} />
           </div>
         </div>
 
@@ -145,7 +136,7 @@ function Hotel_details() {
             <div className="space-y-3">
               <button
                 className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-300 flex items-center justify-center"
-                onClick={handleClickHotel}
+                onClick={() => navigate('booking')}
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />

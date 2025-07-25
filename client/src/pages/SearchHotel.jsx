@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { setSearchResults, setSelectedHotel } from "../store/SearchSlice";
-import { Link } from "react-router-dom";
 import Hotel_Card from "./Hotel_Card";
 
 function SearchHotel() {
   const [sort, setSort] = useState("price");
   const [order, setOrder] = useState("asc");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const dispatch = useDispatch();
-  const searchQuery = useSelector((state) => state.search.searchQuery);
-  const searchResults = useSelector((state) => state.search.searchResults) || [];
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { searchQuery } = useParams();
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const fetchHotelsData = async () => {
+      setLoading(true); 
       try {
         const response = await axios.get("/api/v1/hotels/getHotel", {
           params: {
@@ -24,31 +21,39 @@ function SearchHotel() {
             sort: `${sort}:${order}`,
           },
         });
-        dispatch(setSearchResults(response.data.hotels));
+        setSearchResults(response.data.hotels);
+        setError("");
       } catch (error) {
+        console.error(error);
         setError("Unable to fetch hotel data. Please try again later.");
+        setSearchResults([]);
       } finally {
-        setLoading(false);
+        setLoading(false); 
       }
     };
 
     if (searchQuery) {
       fetchHotelsData();
     }
-  }, [searchQuery, sort, order, dispatch]);
-
-  
+  }, [searchQuery, sort, order]);
 
   const handleSortChange = (e) => {
     setSort(e.target.value);
   };
 
-  const handleDescription=(str)=>{
-    str=str.substr(0,100)+"..."
-    return str;
+  if (loading) {
+    return <p className="text-center text-blue-600 p-6 text-xl">Loading hotels...</p>;
   }
 
-  return searchResults.length > 0 ? (
+  if (error) {
+    return <p className="text-center text-red-500 p-6">{error}</p>;
+  }
+
+  if (searchResults.length === 0) {
+    return <p className="text-center text-gray-500 p-4">No hotel data available</p>;
+  }
+
+  return (
     <div className="mx-auto p-6 bg-white shadow-lg rounded-lg max-w-7xl">
       <div className="bg-gradient-to-r from-blue-600 to-blue-400 text-white p-6 rounded-t-lg flex items-center justify-between">
         <h1 className="text-2xl font-bold">
@@ -69,10 +74,8 @@ function SearchHotel() {
       </div>
 
       <h2 className="text-3xl font-semibold text-gray-800 my-6">Available Hotels</h2>
-          <Hotel_Card searchResults={searchResults}/>
+      <Hotel_Card searchResults={searchResults} />
     </div>
-  ) : (
-    <p className="text-center text-gray-500 p-4">No hotel data available</p>
   );
 }
 

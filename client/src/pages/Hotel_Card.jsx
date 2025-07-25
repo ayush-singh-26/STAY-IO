@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
 function Hotel_Card({ searchResults }) {
@@ -15,7 +14,7 @@ function Hotel_Card({ searchResults }) {
                     <Link className="block">
                         <div className="relative h-64">
                             <img
-                                src={hotel.image[0]}
+                                src={hotel.images[0]}
                                 alt={hotel.name}
                                 className="w-full h-full object-cover"
                             />

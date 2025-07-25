@@ -23,6 +23,7 @@ import Reset_password from './pages/Reset_password.jsx';
 import Forgot_password from './pages/Forgot_password.jsx';
 import Admin_Panel from './pages/admin/Admin_Panel.jsx';
 import Navbar from './components/Navbar.jsx';
+// import BookingSuccess from './pages/BookingSuccess.jsx';
 
 const router = createBrowserRouter([
   {
@@ -34,11 +35,11 @@ const router = createBrowserRouter([
       { path: 'sign-up', element: <SignUp /> },
       { path: 'profile', element: <Profile /> },
       { path: 'change-password', element: <PasswordChange /> },
-      { path: 'search-hotel', element: <SearchHotel /> },
+      { path: 'search-hotel/:searchQuery', element: <SearchHotel /> },
       { path: 'hotel/:hotelId', element: <Hotel_details /> },
       { path: 'hotel/:hotelId/booking', element: <Book_hotel /> },
-      { path: 'get-bookings', element: <Get_bookings /> },
-
+      { path: 'my-bookings', element: <Get_bookings /> },
+      // { path: 'booking-success', element: <BookingSuccess /> },
     ]
   },
   {
@@ -46,11 +47,11 @@ const router = createBrowserRouter([
     element: (
       <>
         <Navbar />
-        <Outlet/>
+        <Outlet />
       </>
     ),
     children: [
-      {path : '' ,element : <Admin_Panel/>},
+      { path: '', element: <Admin_Panel /> },
       { path: 'add-hotel', element: <Add_hotel /> },
       { path: 'edit-hotel', element: <Edit_hotel /> },
     ]
