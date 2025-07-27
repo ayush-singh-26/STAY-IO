@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Comment from "../components/Comment";
@@ -7,7 +6,11 @@ import Comment from "../components/Comment";
 function Hotel_details() {
   const { hotelId } = useParams();
   const navigate = useNavigate();
-  const [selectedHotel, setSelectedHotel] = useState(null)  
+  const [selectedHotel, setSelectedHotel] = useState(null)
+  const [guestCount, setGuestCount] = useState(1)
+  const [checkInDate, setCheckInDate] = useState(new Date().toISOString().split('T')[0]);
+  const [checkOutDate, setCheckOutDate] = useState(new Date(Date.now() + 86400000).toISOString().split('T')[0]);
+
 
   useEffect(() => {
     axios.get(`/api/v1/hotels/getHotelById/${hotelId}`)
@@ -27,6 +30,7 @@ function Hotel_details() {
       console.error("Error deleting hotel:", error);
     }
   }
+
 
   return (
     <div className="p-6 md:p-8 max-w-6xl mx-auto">
@@ -103,12 +107,40 @@ function Hotel_details() {
                 <span className="font-medium">Deluxe Suite</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Duration:</span>
-                <span className="font-medium">2 nights</span>
+                <span className="text-gray-600">Check-In:</span>
+                <input
+                  type="date"
+                  value={checkInDate}
+                  onChange={(e) => setCheckInDate(e.target.value)}
+                  className="border px-2 py-1 rounded"
+                />
+              </div>
+              <div className="flex justify-between mt-2">
+                <span className="text-gray-600">Check-Out:</span>
+                <input
+                  type="date"
+                  value={checkOutDate}
+                  onChange={(e) => setCheckOutDate(e.target.value)}
+                  className="border px-2 py-1 rounded"
+                />
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Guests:</span>
-                <span className="font-medium">2 adults</span>
+                <div className="relative">
+                  <select
+                    id="guests"
+                    value={guestCount}
+                    onChange={(e) => setGuestCount(e.target.value)}
+                    className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  >
+                    {[1, 2, 3, 4, 5, 6].map(num => (
+                      <option key={num} value={num}>
+                        {num} {num === 1 ? 'Guest' : 'Guests'}
+                      </option>
+                    ))}
+                    <option value="7+">7+ Guests</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -121,10 +153,6 @@ function Hotel_details() {
                 <span className="text-gray-600">Taxes & Fees:</span>
                 <span className="font-medium">₹{selectedHotel?.taxes}</span>
               </div>
-              <div className="flex justify-between text-lg font-bold text-gray-900 mt-4 pt-3 border-t border-gray-200">
-                <span>Total:</span>
-                <span>₹{selectedHotel?.price * 2 + selectedHotel?.taxes}</span>
-              </div>
               <p className="text-red-500 text-sm mt-2 flex items-center">
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -136,7 +164,7 @@ function Hotel_details() {
             <div className="space-y-3">
               <button
                 className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-300 flex items-center justify-center"
-                onClick={() => navigate('booking')}
+                onClick={() => navigate(`booking?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&guests=${guestCount}`)}
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />

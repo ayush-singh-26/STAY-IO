@@ -1,46 +1,61 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose,{Schema} from "mongoose";
 
-
-// Define hotel schema
 const hotelSchema = new mongoose.Schema({
-
-    image: {
+    images: {
         type: [String],
+        required: true
     },
-    rating : {
-        type : Number,
+    rating: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 5
     },
     ratingComment: {
-        type : String,
+        type: String
     },
-    amenities: { 
-        type: [String]
+    amenities: {
+        type: [String],
+        default: []
     },
-    name: { 
+    name: {
         type: String,
-        required : true,
-    }, 
-    place: { 
+        required: true,
+        trim: true
+    },
+    place: {
         type: String,
-        required : true,
-    }, 
-    description: { 
-        type: String 
+        required: true,
+        trim: true
     },
-    additional: { 
-        type: String 
+    description: {
+        type: String,
+        trim: true
     },
-    taxes: { 
-        type: Number 
+    additionalInfo: {
+        type: String,
+        trim: true
     },
-    price: { 
-        type: Number 
-    }, 
-    comments:{
+    taxes: {
+        type: Number,
+        default: 0
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    comments: [{
         type: Schema.Types.ObjectId,
         ref: "Comment"
-    }
-});
-
+    }],
+    bookedGuests: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }],
+    isAvailable: {
+        type: Boolean,
+        default: true
+    },
+}, { timestamps: true });
 
 export const Hotel = mongoose.model("Hotel", hotelSchema);

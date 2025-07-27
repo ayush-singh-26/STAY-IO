@@ -1,43 +1,15 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
+import Sidebar from './Sidebar'
 
 function Admin_Panel() {
   return (
-    <div>
-      <div>
-        <NavLink
-              to="add-hotel"
-              className={({ isActive }) =>
-                `px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive
-                  ? 'text-indigo-700 bg-indigo-50'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`
-              }
-            >
-              Add Hotel
-            </NavLink>
-        <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive
-                  ? 'text-indigo-700 bg-indigo-50'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`
-              }
-            >
-              Edit Hotel
-            </NavLink>
-        <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive
-                  ? 'text-indigo-700 bg-indigo-50'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`
-              }
-            >
-              
-            </NavLink>
+    <div className='flex flex-col h-screen'>
+      <div className='flex h-full'>
+        <Sidebar/>
+        <div className='flex-1 p-4 md:px-10 h-full'>
+          <Outlet/>
+        </div>
       </div>
     </div>
   )

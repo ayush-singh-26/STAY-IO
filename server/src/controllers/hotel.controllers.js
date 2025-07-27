@@ -2,7 +2,6 @@ import asyncHandler from "../utils/asyncHandler.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { Hotel } from '../models/hotel.model.js'
-import { Booking } from "../models/booking.js";
 import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import MailSender from "../middlewares/sendMail.js";
@@ -88,7 +87,6 @@ const updateHotel = asyncHandler(async (req, res) => {
 
 const deleteHotel = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    console.log(id);
 
     const deletedHotel = await Hotel.findByIdAndDelete(id);
 
@@ -97,7 +95,6 @@ const deleteHotel = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                deletedHotel,
                 "Hotel deleted successfully"
             ))
 })
@@ -114,7 +111,7 @@ const getHotel = asyncHandler(async (req, res) => {
         place: { $regex: place, $options: "i" }
     };
 
-    let query = Hotel.find(placeQuery);
+    let query = Hotel.find(placeQuery); 
 
     if (sort) {
         const sortOptions = {};
@@ -130,11 +127,7 @@ const getHotel = asyncHandler(async (req, res) => {
     }
 
     try {
-        const hotels = await query.exec();
-        if (hotels.length === 0) {
-            throw new ApiError(404, "No hotels found for the given place");
-        }
-
+        const hotels = await query.exec(); 
         return res.status(200).json({
             status: 200,
             hotels,
@@ -142,15 +135,14 @@ const getHotel = asyncHandler(async (req, res) => {
         });
 
     } catch (error) {
-        throw new ApiError(500, "Error fetching hotel data");
+        console.error("Fetch error:", error); 
+        throw new ApiError(404, "Error fetching hotel data");
     }
 });
 
-
-
-
 const getHotelById = asyncHandler(async (req, res) => {
     const { id } = req.params;
+    
     const hotel = await Hotel.findById(id);
 
     if (!hotel) {
@@ -205,82 +197,61 @@ const loyaltyPoints = asyncHandler(async (req, res) => {
     }
 })
 
-const bookHotel = asyncHandler(async (req, res) => {
-    try {
-        const newBooking = req.body;
-        const booking = await Booking.create(newBooking);
-
-        // await MailSender(
-        //     booking.email,
-        //     "Booking Confirmation",
-        //     `Your booking has been confirmed for the hotel ${booking.hotelName}.\nYour booking ID is ${booking._id}`
-        // )
-
-        return res.status(200).json(
-            new ApiResponse(
-                200,
-                booking,
-                "Hotel booked successfully"
-            )
-        );
-    } catch (error) {
-        throw new ApiError(400, error.message, "Failed in booking hotel")
-    }
-});
 
 
-const getBookings = asyncHandler(async (req, res) => {
-    try {
-        const userId = req.user._id;
 
-        const bookings = await Booking.find({ userId: userId }).populate({
-            path: 'hotelId',
-            select: 'name place image price',
-        });
+// const getBookings = asyncHandler(async (req, res) => {
+//     try {
+//         const userId = req.user._id;
 
-        return res.status(200).json(
-            new ApiResponse(200, bookings, "Bookings fetched successfully")
-        );
-    } catch (err) {
-        throw new ApiError(400, "Failed in fetching bookings", err);
-    }
-});
+//         const bookings = await Booking.find({ userId: userId }).populate({
+//             path: 'hotelId',
+//             select: 'name place image price',
+//         });
 
-const cancelBooking = asyncHandler(async (req, res, next) => {
-    const bookingId = req.params.id;
+//         return res.status(200).json(
+//             new ApiResponse(200, bookings, "Bookings fetched successfully")
+//         );
+//     } catch (err) {
+//         throw new ApiError(400, "Failed in fetching bookings", err);
+//     }
+// });
+
+// const cancelBooking = asyncHandler(async (req, res, next) => {
+//     const bookingId = req.params.id;
     
-    if (!bookingId) {
-        return next(new ApiError(400, "Booking ID is required"));
-    }
+//     if (!bookingId) {
+//         return next(new ApiError(400, "Booking ID is required"));
+//     }
 
-    const booking = await Booking.findOneAndDelete(bookingId);
-    if (!booking) {
-        return next(new ApiError(404, "Booking not found"));
-    }
+//     const booking = await Booking.findOneAndDelete(bookingId);
+//     if (!booking) {
+//         return next(new ApiError(404, "Booking not found"));
+//     }
 
-    // await MailSender(
-    //     booking.email,
-    //     "Booking Cancelled",
-    //     `Your booking for the hotel ${booking.hotelName} has been cancelled.\nYour booking ID is ${booking._id}`
-    // )
+//     // await MailSender(
+//     //     booking.email,
+//     //     "Booking Cancelled",
+//     //     `Your booking for the hotel ${booking.hotelName} has been cancelled.\nYour booking ID is ${booking._id}`
+//     // )
 
-    return res.status(200).json(
-        new ApiResponse(
-            200,
-            "Booking cancelled successfully"
-        )
-    );
-});
+//     return res.status(200).json(
+//         new ApiResponse(
+//             200,
+//             "Booking cancelled successfully"
+//         )
+//     );
+// });
 
 
 
 
 export {
     getHotel,
-    bookHotel,
+    // bookHotel,
     getHotelById,
-    getBookings,
-    cancelBooking,
+    // getBookings,
+    // cancelBooking,
     createHotel,
     updateHotel,
     deleteHotel,

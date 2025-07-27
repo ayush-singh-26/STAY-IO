@@ -142,17 +142,17 @@ function Home() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {trending_places.map((place) => (
-                        <div key={place.place} className="group relative overflow-hidden rounded-xl shadow-lg">
+                        <div key={place?.place} className="group relative overflow-hidden rounded-xl shadow-lg">
                             <Link to={`/search-hotel/${searchQuery}`} onClick={(e) => setSearchQuery(e.target.value)} className="block">
                                 <img
-                                    src={place.image}
-                                    alt={place.place}
+                                    src={place?.image}
+                                    alt={place?.place}
                                     className="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
                                 <div className="absolute bottom-0 left-0 p-6 w-full">
-                                    <h3 className="text-xl font-bold text-white mb-1">{place.place}</h3>
-                                    <p className="text-white/90 text-sm">{place.description}</p>
+                                    <h3 className="text-xl font-bold text-white mb-1">{place?.place}</h3>
+                                    <p className="text-white/90 text-sm">{place?.description}</p>
                                 </div>
                             </Link>
                         </div>

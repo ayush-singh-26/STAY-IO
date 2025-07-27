@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setSelectedHotel } from "../../store/SearchSlice"; // Import your action
+import { setSelectedHotel } from "../../store/SearchSlice"; 
 
 function Edit_hotel() {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
@@ -15,7 +15,6 @@ function Edit_hotel() {
 
     useEffect(() => {
         if (selectedHotel) {
-            // Pre-fill the form with selectedHotel data
             setValue("name", selectedHotel.name);
             setValue("place", selectedHotel.place);
             setValue("description", selectedHotel.description);
@@ -64,7 +63,6 @@ function Edit_hotel() {
             <h1 className="text-2xl font-bold mb-6 text-center text-gray-700">Edit Hotel</h1>
 
             <form onSubmit={handleSubmit(updateHotel)} className="space-y-4">
-                {/* Hotel Name */}
                 <div>
                     <label htmlFor="name" className="block text-gray-600 mb-2">Hotel Name</label>
                     <input
@@ -77,7 +75,6 @@ function Edit_hotel() {
                     {errors.name && <p className="text-red-500 mt-1">{errors.name.message}</p>}
                 </div>
 
-                {/* Place */}
                 <div>
                     <label htmlFor="place" className="block text-gray-600 mb-2">Place</label>
                     <input
@@ -90,7 +87,6 @@ function Edit_hotel() {
                     {errors.place && <p className="text-red-500 mt-1">{errors.place.message}</p>}
                 </div>
 
-                {/* Description */}
                 <div>
                     <label htmlFor="description" className="block text-gray-600 mb-2">Description</label>
                     <textarea
@@ -102,7 +98,6 @@ function Edit_hotel() {
                     {errors.description && <p className="text-red-500 mt-1">{errors.description.message}</p>}
                 </div>
 
-                {/* Price */}
                 <div>
                     <label htmlFor="price" className="block text-gray-600 mb-2">Price</label>
                     <input
@@ -115,7 +110,6 @@ function Edit_hotel() {
                     {errors.price && <p className="text-red-500 mt-1">{errors.price.message}</p>}
                 </div>
 
-                {/* Taxes */}
                 <div>
                     <label htmlFor="taxes" className="block text-gray-600 mb-2">Taxes</label>
                     <input
@@ -128,7 +122,6 @@ function Edit_hotel() {
                     {errors.taxes && <p className="text-red-500 mt-1">{errors.taxes.message}</p>}
                 </div>
 
-                {/* Image URL */}
                 <div>
                     <label htmlFor="image" className="block text-gray-600 mb-2">Image URL</label>
                     <input
