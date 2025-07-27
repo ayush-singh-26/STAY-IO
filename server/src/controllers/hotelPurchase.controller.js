@@ -10,8 +10,6 @@ const createCheckoutSession = async (req, res) => {
     try {
         const userId = req.user._id;
         const { bookingId } = req.body;
-        
-        
         const booking = await Booking.findById(bookingId)
         
         const hotel = await Hotel.findById(booking.hotel._id);

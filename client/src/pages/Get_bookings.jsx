@@ -4,9 +4,7 @@ import { FaRupeeSign } from "react-icons/fa";
 import { FiCalendar, FiMapPin, FiXCircle, FiCheckCircle, FiClock } from "react-icons/fi";
 
 function Get_bookings() {
-    const [bookings, setBookings] = useState([]);
-    console.log(bookings);
-    
+    const [bookings, setBookings] = useState([]);    
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -24,11 +22,9 @@ function Get_bookings() {
         fetchBookings();
     }, []);
 
-    const cancelBooking = async (id) => {
+    const cancelBooking = async (bookingId) => {
         try {
-            await axios.delete(`/api/v1/hotels/cancelBookings/${id}`);
-            // Update the bookings list after cancellation
-            setBookings(bookings.filter(booking => booking._id !== id));
+            await axios.patch(`/api/v1/booking/cancel-booking/${bookingId}`);
         } catch (error) {
             console.error('Error cancelling booking:', error.message);
             setError('Failed to cancel booking. Please try again.');
@@ -82,7 +78,7 @@ function Get_bookings() {
                                     Status
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                                    Price
+                                    Action
                                 </th>
                             </tr>
                         </thead>
@@ -124,7 +120,7 @@ function Get_bookings() {
                                     </td>
                                     <td className="px-4 py-4">
                                         <div className="flex items-center gap-2">
-                                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${booking.status === 'confirmed'
+                                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${booking.status === 'completed'
                                                 ? 'bg-green-100 text-green-800'
                                                 : booking.status === 'cancelled'
                                                     ? 'bg-red-100 text-red-800'
@@ -145,7 +141,7 @@ function Get_bookings() {
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div className="flex justify-start space-x-2">
-                                            {['confirmed', 'pending'].includes(booking.status.toLowerCase()) && (
+                                            {['completed', 'pending'].includes(booking.status.toLowerCase()) && (
                                                 <button
                                                     onClick={() => cancelBooking(booking._id)}
                                                     className="text-red-600 hover:text-red-900 hover:underline"

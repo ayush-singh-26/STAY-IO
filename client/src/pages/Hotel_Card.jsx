@@ -14,7 +14,7 @@ function Hotel_Card({ searchResults }) {
                     <Link className="block">
                         <div className="relative h-64">
                             <img
-                                src={hotel.images[0]}
+                                src={hotel.images?.[0]}
                                 alt={hotel.name}
                                 className="w-full h-full object-cover"
                             />
