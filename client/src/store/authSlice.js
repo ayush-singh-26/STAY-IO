@@ -17,12 +17,13 @@ const authSlice = createSlice({
             state.loading = false;
         },
         signOut: (state) => {
+            state.status = false;
             state.userData = null;
             state.loading = false;
         },
     }
 })
 
-export const {signInStart,signInSuccess,signInFailure,signOut} = authSlice.actions;
+export const {signInSuccess,signOut} = authSlice.actions;
 
 export default authSlice.reducer;

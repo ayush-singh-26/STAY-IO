@@ -59,6 +59,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const options = {
         httpOnly: true,
         secure: true,
+        expires : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
     }
 
     return res.status(201)
@@ -97,6 +98,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const options = {
         httpOnly: true,
         secure: true,
+        expires : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
     }
 
     return res
@@ -273,11 +275,11 @@ const google = asyncHandler(async (req, res, next) => {
 })
 
 const logoutUser = asyncHandler(async (req, res) => {
-    User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
         req.user._id,
         {
             $unset: {
-                refreshToken: 1
+                accessToken: 1
             }
         },
         {
@@ -291,7 +293,6 @@ const logoutUser = asyncHandler(async (req, res) => {
     }
     return res.status(200)
         .clearCookie("accessToken", options)
-        .clearCookie("refreshToken", options)
         .json(new ApiResponse(200, {}, "User logged Out"))
 
 })
@@ -337,7 +338,6 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body
 
     const user = await User.findById(req.user?._id)
-    // console.log(user);
     const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
 
     if (!isPasswordCorrect) {
@@ -356,7 +356,9 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     return res.status(200)
         .json(new ApiResponse(
             200,
-            req.user, "Cureent user Fetched Successfully"))
+            req.user, "Cureent user Fetched Successfully"
+        )
+    )
 })
 
 const deleteUser = asyncHandler(async (req, res) => {
@@ -369,7 +371,6 @@ const deleteUser = asyncHandler(async (req, res) => {
     return res.status(200).json(
         new ApiResponse(200, {}, "User deleted successfully")
     )
-
 })
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
@@ -397,15 +398,15 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
 })
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
-    const avatarLocalPath = req.file?.path
-
+    const avatarLocalPath = req.file?.path;
+    console.log(avatarLocalPath);
+    
     if (!avatarLocalPath) {
         throw new ApiError(400, "Avatar file is missing")
     }
 
     const avatar = await uploadOnCloudinary(avatarLocalPath)
 
-    //TODO: avatar old image delete
     const oldAvatar = await User.findById(req.user?._id)
 
     const extractPublicIdFromUrl = (imageUrl) => {
@@ -417,7 +418,6 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 
     if (oldAvatar.avatar) {
         const publicId = extractPublicIdFromUrl(oldAvatar.avatar);
-
         await cloudinary.uploader.destroy(publicId);
     }
 

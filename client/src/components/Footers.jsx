@@ -1,58 +1,109 @@
-import React from "react";
+import { FaAirbnb, FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { FiChevronRight } from "react-icons/fi";
+import { IoMdMail } from "react-icons/io";
+import { MdPhone } from "react-icons/md";
+import { TiHome } from "react-icons/ti";
 
-function Footers() {
+function Footer() {
     return (
-        <div className="bg-gray-900 text-white py-10">
-            <div className="max-w-6xl mx-auto px-4 lg:px-8">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                    <ul className="space-y-2">
-                        <li className="font-semibold">Countries</li>
-                        <li>Regions</li>
-                        <li>Cities</li>
-                        <li>Districts</li>
-                        <li>Airports</li>
-                        <li>Hotels</li>
-                    </ul>
-                    <ul className="space-y-2">
-                        <li className="font-semibold">Homes</li>
-                        <li>Apartments</li>
-                        <li>Resorts</li>
-                        <li>Villas</li>
-                        <li>Hostels</li>
-                        <li>Guest houses</li>
-                    </ul>
-                    <ul className="space-y-2">
-                        <li className="font-semibold">Unique stays</li>
-                        <li>Reviews</li>
-                        <li>Travel articles</li>
-                        <li>Communities</li>
-                        <li>Holiday deals</li>
-                    </ul>
-                    <ul className="space-y-2">
-                        <li className="font-semibold">Services</li>
-                        <li>Car rental</li>
-                        <li>Flight Finder</li>
-                        <li>Restaurant reservations</li>
-                        <li>Travel Agents</li>
-                    </ul>
-                    <ul className="space-y-2">
-                        <li className="font-semibold">About</li>
-                        <li>Customer Service</li>
-                        <li>Partner Help</li>
-                        <li>Careers</li>
-                        <li>Sustainability</li>
-                        <li>Press Center</li>
-                        <li>Safety Resources</li>
-                        <li>Investor Relations</li>
-                        <li>Terms & Conditions</li>
-                    </ul>
+        <footer className="bg-gray-900 text-gray-300 pt-12 pb-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Main Footer Content */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+                    {/* Logo and About */}
+                    <div className="lg:col-span-2">
+                        <div className="flex items-center mb-4">
+                            <TiHome className='text-3xl text-indigo-600 mr-2' />
+                            <span className="text-white text-xl font-bold">STAY-IO</span>
+                        </div>
+                        <p className="text-gray-400 mb-4">
+                            Discover the perfect place to stay at amazing prices in 191+ countries.
+                            Whether you're looking for a hotel, apartment, or unique stay, we've got you covered.
+                        </p>
+                        <div className="flex space-x-4">
+                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                <FaFacebook className="text-xl" />
+                            </a>
+                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                <FaTwitter className="text-xl" />
+                            </a>
+                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                <FaInstagram className="text-xl" />
+                            </a>
+                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                <FaLinkedin className="text-xl" />
+                            </a>
+                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                <FaYoutube className="text-xl" />
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* Quick Links */}
+                    <div>
+                        <h3 className="text-white font-semibold text-lg mb-4 border-b border-gray-700 pb-2">Explore</h3>
+                        <ul className="space-y-3">
+                            <li><a href="#" className="hover:text-white transition-colors flex items-center"><FiChevronRight className="mr-1 text-sm" /> Countries</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors flex items-center"><FiChevronRight className="mr-1 text-sm" /> Regions</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors flex items-center"><FiChevronRight className="mr-1 text-sm" /> Cities</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors flex items-center"><FiChevronRight className="mr-1 text-sm" /> Districts</a></li>
+                        </ul>
+                    </div>
+
+                    {/* Accommodations */}
+                    <div>
+                        <h3 className="text-white font-semibold text-lg mb-4 border-b border-gray-700 pb-2">Stays</h3>
+                        <ul className="space-y-3">
+                            <li><a href="#" className="hover:text-white transition-colors flex items-center"><FiChevronRight className="mr-1 text-sm" /> Hotels</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors flex items-center"><FiChevronRight className="mr-1 text-sm" /> Apartments</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors flex items-center"><FiChevronRight className="mr-1 text-sm" /> Resorts</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors flex items-center"><FiChevronRight className="mr-1 text-sm" /> Villas</a></li>
+                        </ul>
+                    </div>
+
+                    {/* Contact & Support */}
+                    <div>
+                        <h3 className="text-white font-semibold text-lg mb-4 border-b border-gray-700 pb-2">Support</h3>
+                        <ul className="space-y-3">
+                            <li className="flex items-start">
+                                <MdPhone className="mt-1 mr-2 text-blue-400" />
+                                <div>
+                                    <p className="text-sm text-gray-400">24/7 Customer Support</p>
+                                    <a href="tel:+916389394206" className="hover:text-white transition-colors">+91 6389394206</a>
+                                </div>
+                            </li>
+                            <li className="flex items-start">
+                                <IoMdMail className="mt-1 mr-2 text-blue-400" />
+                                <div>
+                                    <p className="text-sm text-gray-400">Email Us</p>
+                                    <a href="mailto:support@stayease.com" className="hover:text-white transition-colors">support@stayio.com</a>
+                                </div>
+                            </li>
+                            <li><a href="#" className="hover:text-white transition-colors flex items-center"><FiChevronRight className="mr-1 text-sm" /> Help Center</a></li>
+                           
+                        </ul>
+                    </div>
                 </div>
-                <div className="mt-8 text-center text-gray-400">
-                    © 2024 AyushSingh. All rights reserved.
+
+                {/* Divider */}
+                <div className="border-t border-gray-800 my-6"></div>
+
+                {/* Bottom Footer */}
+                <div className="flex flex-col md:flex-row justify-between items-center">
+                    <div className="text-gray-500 text-sm mb-4 md:mb-0">
+                        © {new Date().getFullYear()} StayEase, Inc. All rights reserved.
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+                        <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+                        <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Cookie Policy</a>
+                        <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Accessibility</a>
+                        <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Sitemap</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        </footer>
     );
 }
 
-export default Footers;
+export default Footer;
