@@ -7,6 +7,7 @@ const searchSlice= createSlice({
     initialState: {
         searchQuery: '',
         searchResults: [],
+        selectedHotel : null
     },
     reducers: {
         setSearchQuery(state, action){

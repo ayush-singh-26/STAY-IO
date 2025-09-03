@@ -236,17 +236,15 @@ const sendEmail = asyncHandler(async (req, res, next) => {
 
 const google = asyncHandler(async (req, res, next) => {
     try {
-
+        console.log(req.body);
+        
         const user = await User.findOne({ email: req.body.email })
         if (user) {
-
-
-            const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id)
-            const expiryDate = new Date(Date.now() + 3600000);
+            const { accessToken } = await user.generateAccessToken();
+            const expiryDate = new Date(Date.now() + 3600000 * 24);
             res.status(200)
                 .cookie("accessToken", accessToken, { expires: expiryDate, httpOnly: true, secure: true })
-                .cookie("refreshToken", refreshToken, { expires: expiryDate, httpOnly: true, secure: true })
-                .json(new ApiResponse(200, user, { message: "User logged in successfully" }, "User logged in successfully"))
+                .json(new ApiResponse(200, user, "User logged in successfully"))
         }
         else {
             const genratedPassword = Math.random().toString(36).slice(-8)
@@ -260,13 +258,11 @@ const google = asyncHandler(async (req, res, next) => {
                 avatar: req.body.picture,
             })
             await newUser.save();
-            const { accessToken, refreshToken } = await generateAccessAndRefreshToken(newUser._id)
-            const expiryDate = new Date(Date.now() + 3600000);
+            const { accessToken } = await newUser.generateAccessToken();
+            const expiryDate = new Date(Date.now() + 3600000 * 24);
             res.status(200)
                 .cookie("accessToken", accessToken, { expires: expiryDate, httpOnly: true, secure: true })
-                .cookie("refreshToken", refreshToken, { expires: expiryDate, httpOnly: true, secure: true })
-                .json(new ApiResponse(200, newUser, { message: "User logged in successfully" }, "User logged in successfully"))
-
+                .json(new ApiResponse(200, newUser, "User logged in successfully"))
         }
     }
     catch (error) {

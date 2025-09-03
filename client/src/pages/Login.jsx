@@ -25,7 +25,7 @@ function Login() {
             setMessage(response.data.message);
             localStorage.setItem('token', response.data.data.accessToken);
             dispatch(signInSuccess(response.data.data.user));
-            navigate('/profile');
+            navigate('/');
         } catch (e) {
             const errorMsg = e.response?.data?.message || 'Authentication failed';
             setMessage(errorMsg);

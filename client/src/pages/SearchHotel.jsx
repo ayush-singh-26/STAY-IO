@@ -10,6 +10,8 @@ function SearchHotel() {
   const [loading, setLoading] = useState(false);
   const { searchQuery } = useParams();
   const [searchResults, setSearchResults] = useState([]);
+  console.log(searchResults);
+  
 
   useEffect(() => {
     const fetchHotelsData = async () => {
@@ -21,6 +23,8 @@ function SearchHotel() {
             sort: `${sort}:${order}`,
           },
         });
+        console.log(response.data);
+        
         setSearchResults(response.data.hotels);
         setError("");
       } catch (error) {
@@ -49,7 +53,7 @@ function SearchHotel() {
     return <p className="text-center text-red-500 p-6">{error}</p>;
   }
 
-  if (searchResults.length === 0) {
+  if (searchResults?.length === 0) {
     return <p className="text-center text-gray-500 p-4">No hotel data available</p>;
   }
 

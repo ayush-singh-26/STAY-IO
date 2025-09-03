@@ -12,7 +12,6 @@ function Home() {
     const [checkOutDate, setCheckOutDate] = useState(new Date(Date.now() + 86400000).toISOString().split('T')[0]);
     const [guests, setGuests] = useState(2);
 
-    const searchResults = useSelector(state => state.search.searchResults);
 
     const handleSearch = () => {
         if (searchQuery.trim()) {
@@ -202,7 +201,9 @@ function Home() {
                             View all offers <FiChevronRight className="ml-1" />
                         </Link>
                     </div>
-                    <Hotel_Card searchResults={searchResults} />
+                    {/* <Hotel_Card searchResults={searchResults} /> */}
+                            <p className="text-lg text-gray-600">There is no exclusive offers</p>
+                
                 </div>
             </section>
 
@@ -220,7 +221,7 @@ function Home() {
                         View all hotels <FiChevronRight className="ml-1" />
                     </Link>
                 </div>
-                <Hotel_Card searchResults={searchResults} />
+                {/* <Hotel_Card searchResults={searchResults} /> */}
             </section>
         </div>
     );
