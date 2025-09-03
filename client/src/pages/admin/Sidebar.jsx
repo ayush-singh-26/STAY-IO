@@ -3,7 +3,7 @@ import { assets } from '../../assets/assets'
 
 function Sidebar() {
   const sidebarLinks = [
-    { name: "Dashboard", path: '/admin/dashboard', icon: assets.dashboardIcon },
+    // { name: "Dashboard", path: '/admin/dashboard', icon: assets.dashboardIcon },
     { name: "Add Room", path: '/admin/add-room', icon: assets.addIcon },
     // { name: "List Rooms", path: '/admin/list-room', icon: assets.listIcon },
   ]

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -7,64 +7,46 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { signOut } from '../store/authSlice';
 
 const Profile = () => {
-  const currentUser = useSelector(state => state.auth?.userData)
+  const currentUser = useSelector(state => state.auth?.userData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(null);
-  const [avatarFile, setAvatarFile] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [passwordData, setPasswordData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: ''
-  });
 
   const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setAvatarPreview(imageUrl);
-      setAvatarFile(file);
 
-      // Upload to server
       try {
         const formData = new FormData();
         formData.append('avatar', file);
 
-        const response = await axios.patch('/api/v1/users/change-avatar', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
+        const response = await axios.patch(
+          '/api/v1/users/change-avatar',
+          formData,
+          {
+            withCredentials: true, // ⬅️ use cookie auth
+            headers: { 'Content-Type': 'multipart/form-data' },
+          }
+        );
 
-        // Update user data with new avatar
-        setUserData(prev => ({ ...prev, avatar: response.data.data.avatar }));
+        // Update Redux store with new avatar
+        dispatch(updateAvatar(response.data.data.avatar));
       } catch (error) {
         setError("Failed to update avatar");
-        setAvatarPreview(userData?.avatar);
+        setAvatarPreview(currentUser?.avatar);
       }
     }
-  };
-
-  const handlePasswordChange = (e) => {
-    const { name, value } = e.target;
-    setPasswordData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handlePasswordSubmit = async (e) => {
-    e.preventDefault();
-    // Add password change logic here
-    setShowPasswordModal(false);
   };
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
       try {
-        await axios.delete('/api/v1/users/deleteAccount');
+        await axios.delete('/api/v1/users/deleteAccount', { withCredentials: true });
         dispatch(signOut());
         navigate('/');
       } catch (error) {
@@ -98,7 +80,7 @@ const Profile = () => {
               <h2 className="text-xl font-bold mb-4 text-indigo-600">Profile Picture</h2>
               <div className="relative group w-40 h-40 mx-auto">
                 <img
-                  src={currentUser?.avatar}
+                  src={avatarPreview || currentUser?.avatar}
                   alt="User Avatar"
                   className="w-full h-full object-cover rounded-full border-4 border-indigo-400 group-hover:opacity-70 transition-opacity"
                 />
@@ -126,7 +108,10 @@ const Profile = () => {
 
             <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
               <h2 className="text-xl font-bold mb-2 text-indigo-600">Account Actions</h2>
-              <button onClick={()=>navigate('/change-password')} className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
+              <button
+                onClick={() => navigate('/change-password')}
+                className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
+              >
                 <span className="text-gray-800">Change Password</span>
                 <FaLock className='text-indigo-600' />
               </button>
@@ -139,6 +124,8 @@ const Profile = () => {
               </button>
             </div>
           </div>
+
+          {/* Right Column */}
           <div className="w-full lg:w-2/3">
             <div className="bg-white rounded-2xl p-6 shadow-sm">
               <h2 className="text-2xl font-bold mb-6 text-indigo-600">Profile Information</h2>
@@ -157,7 +144,7 @@ const Profile = () => {
                     <label className="block text-gray-600 mb-2">Email</label>
                     <input
                       type="email"
-                      defaultValue={currentUser?.email || "john@example.com"}
+                      defaultValue={currentUser?.email}
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-800"
                     />
                   </div>

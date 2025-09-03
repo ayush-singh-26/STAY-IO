@@ -20,7 +20,7 @@ function Comment({ selectedHotel }) {
             }
         };
         fetchComments();
-    }, [selectedHotel,comments]);
+    }, [selectedHotel]);
 
     const addComment = async (data) => {
         try {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { FaRupeeSign } from "react-icons/fa";
 import { FiCalendar, FiMapPin, FiXCircle, FiCheckCircle, FiClock } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 function Get_bookings() {
     const [bookings, setBookings] = useState([]);    
@@ -20,13 +20,13 @@ function Get_bookings() {
             }
         };
         fetchBookings();
-    }, []);
+    }, [bookings]);
 
     const cancelBooking = async (bookingId) => {
         try {
             await axios.patch(`/api/v1/booking/cancel-booking/${bookingId}`);
+            toast.success('Your booking is cancelled')
         } catch (error) {
-            console.error('Error cancelling booking:', error.message);
             setError('Failed to cancel booking. Please try again.');
         }
     };
@@ -104,7 +104,7 @@ function Get_bookings() {
                                                     Guests: {booking.guestCount || 1}
                                                 </div>
                                                 <div className="text-sm font-medium text-gray-900 mt-1">
-                                                    ${booking.totalPrice?.toFixed(2) || '0.00'}
+                                                    {booking.totalPrice?.toFixed(2) || '0.00'}
                                                 </div>
                                             </div>
                                         </div>

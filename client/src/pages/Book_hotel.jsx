@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useParams, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Book_hotel() {
   const { hotelId } = useParams();
@@ -37,6 +38,7 @@ function Book_hotel() {
         guests : guestCount,
         ...formData,
       });
+      toast.success('Your booking is done!. Go to booking page for payment.')
     } catch (err) {
       console.error("Booking error:", err);
       setError(err.response?.data?.message || "Booking failed. Please try again.");

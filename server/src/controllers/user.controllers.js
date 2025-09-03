@@ -114,7 +114,6 @@ const loginUser = asyncHandler(async (req, res) => {
                 "User logged In Successfully"
             )
         )
-
 })
 
 const forgot_Password = asyncHandler(async (req, res) => {

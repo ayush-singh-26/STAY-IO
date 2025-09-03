@@ -3,6 +3,7 @@ import { createHotel, getHotel, getHotelById,updateHotel,deleteHotel,loyaltyPoin
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { createCheckoutSession } from "../controllers/hotelPurchase.controller.js";
+import { getDashboardStats } from "../controllers/dashboardController.js";
 
 
 const router=new Router();
@@ -22,7 +23,13 @@ router.route('/updateHotel/:id').patch(verifyJWT,updateHotel);
 router.route('/deleteHotel/:id').delete(verifyJWT,deleteHotel);
 router.route('/loyaltyPoints/:hotelId').patch(verifyJWT,loyaltyPoints);
 
+//dashboard
+router.route('/dashboard').get(verifyJWT, getDashboardStats);
+
+
 //puchase
 router.route('/checkout/create-checkout-session').post(verifyJWT,createCheckoutSession);
+
+
 
 export default router;

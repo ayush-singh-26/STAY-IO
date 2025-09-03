@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Footers from './components/Footers';
 import Navbar from './components/Navbar';
 import { Bounce, ToastContainer } from 'react-toastify';
+import './index.css'
 
 function App() {
 
